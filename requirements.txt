@@ -1,0 +1,8 @@
+torch==1.13.0
+torchvision==0.14.0
+numpy==1.21.6
+argparse==1.1
+sklearn==0.0.post1
+scikit-image==0.19.3
+opencv-python==4.7.0.72
+Pillow==9.4.0
