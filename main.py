@@ -128,7 +128,7 @@ def train(args):
     ae_optimizer = torch.optim.Adam(ae.parameters(), lr=args.lr, betas=(0.5, 0.999))
     discriminator_optimizer = torch.optim.Adam(discriminator.parameters(), lr=args.d_lr, betas=(0.5, 0.999))
     
-    alpha = 0.5
+    gamma = 0.5
     true_label = 0
     fake_label = 1
     for epoch in range(1, epochs+1):
@@ -169,7 +169,7 @@ def train(args):
                 
             outputs_detach = [o.detach() for o in outputs]
             if anomaly_size > 0:
-                dis_loss = discriminator.calculate_loss(normal_inputs_detach, true_label) + alpha * discriminator.calculate_loss(anomaly_inputs_detach, fake_label) + alpha * discriminator.calculate_loss(outputs_detach, fake_label)
+                dis_loss = discriminator.calculate_loss(normal_inputs_detach, true_label) + (1 - gamma) * discriminator.calculate_loss(anomaly_inputs_detach, fake_label) + gamma * discriminator.calculate_loss(outputs_detach, fake_label)
                 discriminator_optimizer.zero_grad()
                 dis_loss.backward()
                 torch.nn.utils.clip_grad_norm_(discriminator.parameters(), 1.0)
