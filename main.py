@@ -113,7 +113,7 @@ def train(args):
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     logger.info("device: {}".format(device))
 
-    dataset = OODDataSet(root='/data2/fqq', dataset=args.dataset, image_size=args.img_size, category=args.normal,
+    dataset = OODDataSet(root='./data', dataset=args.dataset, image_size=args.img_size, category=args.normal,
                          labeled_anomaly_ratio=args.labeled_anomaly_ratio,
                          labeled_anomaly_class_num=args.labeled_anomaly_class_num,
                          labeled_anomaly_class=args.labeled_anomaly_class)
